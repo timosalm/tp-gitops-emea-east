@@ -1,0 +1,16 @@
+# apiVersion: networking.tanzu.vmware.com/v1alpha1
+# kind: DNSProvider
+# metadata:
+#   name: emea-east-avi
+#   namespace: default
+# spec:
+#   healthcheck:
+#     failureThreshold: 3
+#     interval: 30s
+#     timeout: 5s
+#   provider:
+#     aviGSLB:
+#       host: avi.elasticsky.cloud
+#       secretRef:
+#         name: emea-east-avi-dns-secret
+#   zone: TODO

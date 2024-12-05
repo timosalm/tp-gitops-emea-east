@@ -1,0 +1,18 @@
+# apiVersion: networking.tanzu.vmware.com/v1alpha1
+# kind: Domain
+# metadata:
+#   name: emea-east.avi.elasticsky.cloud
+#   namespace: default
+# spec:
+#   allowed:
+#     ports:
+#     - '*'
+#     spaces:
+#     - '*'
+#     subdomains:
+#     - '*'
+#   autoAssignable:
+#     ports: {}
+#     subdomains: {}
+#   dnsProviderRef:
+#     name: emea-east-avi

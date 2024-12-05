@@ -1,0 +1,67 @@
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Profile
+metadata:
+  name: emea-east-web-workload
+  namespace: default
+spec:
+  requiredCapabilities:
+  - name: mtls.tanzu.vmware.com
+  - name: crosscluster.tanzu.vmware.com
+  - name: crossplane.tanzu.vmware.com
+  - name: fluxcd-helm.tanzu.vmware.com
+  - name: fluxcd-source.tanzu.vmware.com
+  - name: bitnami.services.tanzu.vmware.com
+  - name: registry-pull-only-credentials-installer.tanzu.vmware.com
+  - name: config-server.spring.tanzu.vmware.com
+  - name: servicebinding.tanzu.vmware.com
+  - name: ingress.tanzu.vmware.com
+  - name: certificates.tanzu.vmware.com
+  - name: egress.tanzu.vmware.com
+  - name: tanzu-servicebinding.tanzu.vmware.com
+  - name: container-app.tanzu.vmware.com
+  - name: k8sgateway.tanzu.vmware.com
+  - name: service-registry.spring.apps.tanzu.vmware.com
+  - name: package-management.tanzu.vmware.com
+  - name: spring-cloud-gateway.tanzu.vmware.com
+  - name: observability.tanzu.vmware.com
+  - name: servicemesh-observability.tanzu.vmware.com
+  - name: horizontal-autoscaling.tanzu.vmware.com
+  - name: health.spaces.tanzu.vmware.com
+  - name: build.tanzu.vmware.com
+  - name: kubernetes-metrics-server.tanzu.vmware.com
+  traits:
+  - alias: carvel-package-installer.tanzu.vmware.com
+    name: carvel-package-installer.tanzu.vmware.com
+    values:
+      inline:
+        carvel-package-installer:
+          serviceAccountName: carvel-package-installer
+  - alias: api-gateway.spring.tanzu.vmware.com
+    name: api-gateway.spring.tanzu.vmware.com
+    values:
+      inline:
+        gateway:
+          api:
+            cors:
+              maxAge: 0
+            version: unspecified
+          count: 1
+          gateway:
+            name: spring-cloud-gateway
+          healthCheck:
+            enabled: false
+            interval: 25s
+          sso:
+            inactive-session-expiration-in-minutes: 0
+  - alias: observability.tanzu.vmware.com
+    name: observability.tanzu.vmware.com
+    values:
+      inline:
+        observability-traits.tanzu.vmware.com:
+          enabled: true
+  - alias: fluxcd-helmrelease-installer.tanzu.vmware.com
+    name: fluxcd-helmrelease-installer.tanzu.vmware.com
+    values:
+      inline:
+        fluxcd-helmrelease-installer:
+          serviceAccountName: fluxcd-helmrelease-installer
