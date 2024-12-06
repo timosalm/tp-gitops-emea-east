@@ -1,26 +1,25 @@
+#@ load("@ytt:data", "data")
 ---
-apiVersion: packaging.carvel.dev/v1alpha1
-kind: PackageInstall
-metadata:
-  name: kubernetes-metrics-server.tanzu.vmware.com
-spec:
-  defaultNamespace: unusable-namespace
-  packageRef:
-    refName: kubernetes-metrics-server.tanzu.vmware.com
-    versionSelection:
-      constraints: ">0.0.0"
-      prereleases: {}
-  serviceAccountName: pkg-installs-sa
-  values:
-  - secretRef:
-      name: kubernetes-metrics-server.tanzu.vmware.com
----
+# apiVersion: packaging.carvel.dev/v1alpha1
+# kind: PackageInstall
+# metadata:
+#   name: kubernetes-metrics-server.tanzu.vmware.com
+# spec:
+# #   packageRef:
+#     refName: kubernetes-metrics-server.tanzu.vmware.com
+#     versionSelection:
+#       constraints: ">0.0.0"
+#       prereleases: {}
+#   serviceAccountName: pkg-installs-sa
+#   values:
+#   - secretRef:
+#       name: kubernetes-metrics-server.tanzu.vmware.com
+# ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: mtls.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: mtls.tanzu.vmware.com
     versionSelection:
@@ -32,7 +31,6 @@ kind: PackageInstall
 metadata:
   name: observability.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: observability.tanzu.vmware.com
     versionSelection:
@@ -44,7 +42,6 @@ kind: PackageInstall
 metadata:
   name: registry-pull-only-credentials-installer.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: registry-pull-only-credentials-installer.tanzu.vmware.com
     versionSelection:
@@ -54,12 +51,24 @@ spec:
   - secretRef:
       name: registry-pull-only-credentials-installer.tanzu.vmware.com
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry-pull-only-credentials-installer.tanzu.vmware.com
+type: Opaque
+stringData:
+  #@yaml/text-templated-strings
+  values.yml: | 
+    username: (@= data.values.workload_registry.username @)
+    password: (@= data.values.workload_registry.password @)
+    registry: (@= data.values.workload_registry.hostname @)
+    _package_install_name: tanzu-registry-creds
+---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: service-registry.spring.apps.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: service-registry.spring.apps.tanzu.vmware.com
     versionSelection:
@@ -71,7 +80,6 @@ kind: PackageInstall
 metadata:
   name: servicebinding.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: servicebinding.tanzu.vmware.com
     versionSelection:
@@ -83,7 +91,6 @@ kind: PackageInstall
 metadata:
   name: spring-cloud-gateway.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: spring-cloud-gateway.tanzu.vmware.com
     versionSelection:
@@ -95,7 +102,6 @@ kind: PackageInstall
 metadata:
   name: tanzu-servicebinding.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: tanzu-servicebinding.tanzu.vmware.com
     versionSelection:
@@ -107,7 +113,6 @@ kind: PackageInstall
 metadata:
   name: config-server.spring.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: config-server.spring.tanzu.vmware.com
     versionSelection:
@@ -119,7 +124,6 @@ kind: PackageInstall
 metadata:
   name: bitnami.services.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: bitnami.services.tanzu.vmware.com
     versionSelection:
@@ -131,53 +135,40 @@ kind: PackageInstall
 metadata:
   name: cert-manager.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: cert-manager.tanzu.vmware.com
     versionSelection:
       constraints: ">0.0.0"
   serviceAccountName: pkg-installs-sa
-  values:
-  - secretRef:
-      name: cert-manager.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: container-apps.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: container-apps.tanzu.vmware.com
     versionSelection:
       constraints: ">0.0.0"
   serviceAccountName: pkg-installs-sa
-  values:
-  - secretRef:
-      name: container-apps.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: controller.build.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: controller.build.tanzu.vmware.com
     versionSelection:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
-  values:
-  - secretRef:
-      name: controller.build.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: crosscluster.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: crosscluster.tanzu.vmware.com
     versionSelection:
@@ -189,7 +180,6 @@ kind: PackageInstall
 metadata:
   name: egress.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: egress.tanzu.vmware.com
     versionSelection:
@@ -201,7 +191,6 @@ kind: PackageInstall
 metadata:
   name: fluxcd-helm-controller.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: fluxcd-helm-controller.tanzu.vmware.com
     versionSelection:
@@ -213,7 +202,6 @@ kind: PackageInstall
 metadata:
   name: fluxcd-source-controller.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: fluxcd-source-controller.tanzu.vmware.com
     versionSelection:
@@ -225,55 +213,42 @@ kind: PackageInstall
 metadata:
   name: health.spaces.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: health.spaces.tanzu.vmware.com
     versionSelection:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
-  values:
-  - secretRef:
-      name: health.spaces.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: horizontal-autoscaling.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: horizontal-autoscaling.tanzu.vmware.com
     versionSelection:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
-  values:
-  - secretRef:
-      name: horizontal-autoscaling.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: ingress.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: ingress.tanzu.vmware.com
     versionSelection:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
-  values:
-  - secretRef:
-      name: ingress.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
   name: k8sgateway.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: k8sgateway.tanzu.vmware.com
     versionSelection:
@@ -285,7 +260,6 @@ kind: PackageInstall
 metadata:
   name: crossplane.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: crossplane.tanzu.vmware.com
     versionSelection:
@@ -297,7 +271,6 @@ kind: PackageInstall
 metadata:
   name: tcs.tanzu.vmware.com
 spec:
-  defaultNamespace: unusable-namespace
   packageRef:
     refName: tcs.tanzu.vmware.com
     versionSelection:

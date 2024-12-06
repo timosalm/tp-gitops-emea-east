@@ -2,4 +2,5 @@ private/
 .DS_Store
 
 .vscode/
-
+values.yaml
+generated/

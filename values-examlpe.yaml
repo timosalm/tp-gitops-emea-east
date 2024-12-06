@@ -1,0 +1,6 @@
+#@data/values
+---
+workload_registry:
+  username:
+  password:
+  hostname:
