@@ -130,6 +130,14 @@ spec:
       constraints: ">0.0.0"
   serviceAccountName: pkg-installs-sa
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cert-manager.tanzu.vmware.com
+type: Opaque
+stringData:
+  values.yml: ""
+---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
@@ -140,6 +148,17 @@ spec:
     versionSelection:
       constraints: ">0.0.0"
   serviceAccountName: pkg-installs-sa
+  values:
+  - secretRef:
+      name: cert-manager.tanzu.vmware.com
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: container-apps.tanzu.vmware.com
+type: Opaque
+stringData:
+  values.yml: ""
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
@@ -151,6 +170,17 @@ spec:
     versionSelection:
       constraints: ">0.0.0"
   serviceAccountName: pkg-installs-sa
+  values:
+  - secretRef:
+      name: container-apps.tanzu.vmware.com
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: controller.build.tanzu.vmware.com
+type: Opaque
+stringData:
+  values.yml: ""
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
@@ -163,6 +193,9 @@ spec:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
+  values:
+  - secretRef:
+      name: controller.build.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
@@ -208,6 +241,14 @@ spec:
       constraints: ">0.0.0"
   serviceAccountName: pkg-installs-sa
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: health.spaces.tanzu.vmware.com
+type: Opaque
+stringData:
+  values.yml: ""
+---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
@@ -219,6 +260,17 @@ spec:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
+  values:
+  - secretRef:
+      name: health.spaces.tanzu.vmware.com
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: horizontal-autoscaling.tanzu.vmware.com
+type: Opaque
+stringData:
+  values.yml: ""
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
@@ -231,6 +283,17 @@ spec:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
+  values:
+  - secretRef:
+      name: horizontal-autoscaling.tanzu.vmware.com
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ingress.tanzu.vmware.com
+type: Opaque
+stringData:
+  values.yml: ""
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
@@ -243,6 +306,9 @@ spec:
       constraints: ">0.0.0"
       prereleases: {}
   serviceAccountName: pkg-installs-sa
+  values:
+  - secretRef:
+      name: ingress.tanzu.vmware.com
 ---
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
