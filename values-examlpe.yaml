@@ -4,3 +4,7 @@ workload_registry:
   username:
   password:
   hostname:
+  ca_cert: |
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----

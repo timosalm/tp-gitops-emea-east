@@ -28,7 +28,7 @@ spec:
   - name: horizontal-autoscaling.tanzu.vmware.com
   - name: health.spaces.tanzu.vmware.com
   - name: build.tanzu.vmware.com
-  - name: kubernetes-metrics-server.tanzu.vmware.com
+  #- name: kubernetes-metrics-server.tanzu.vmware.com
   traits:
   - alias: carvel-package-installer.tanzu.vmware.com
     name: carvel-package-installer.tanzu.vmware.com
