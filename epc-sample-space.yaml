@@ -1,0 +1,17 @@
+apiVersion: spaces.tanzu.vmware.com/v1alpha1
+kind: Space
+metadata:
+  name: epc-sample
+spec:
+  availabilityTargets:
+  - name: epc
+    replicas: 1
+  template:
+    spec:
+      profiles:
+      - name: epc-web-workload
+        values:
+          inline: null
+      resources: {}
+  updateStrategy:
+    type: RollingUpdate

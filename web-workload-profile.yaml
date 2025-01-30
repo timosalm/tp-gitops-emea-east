@@ -1,7 +1,7 @@
 apiVersion: spaces.tanzu.vmware.com/v1alpha1
 kind: Profile
 metadata:
-  name: emea-east-web-workload
+  name: epc-web-workload
   namespace: default
 spec:
   requiredCapabilities:

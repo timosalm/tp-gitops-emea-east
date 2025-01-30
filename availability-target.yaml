@@ -1,7 +1,7 @@
 apiVersion: spaces.tanzu.vmware.com/v1alpha1
 kind: AvailabilityTarget
 metadata:
-  name: emea-east
+  name: epc
   namespace: default
 spec:
   affinity:
@@ -11,4 +11,4 @@ spec:
         - key: region
           operator: In
           values:
-          - emea-east
+          - epc

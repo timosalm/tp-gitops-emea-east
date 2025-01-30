@@ -59,9 +59,9 @@ type: Opaque
 stringData:
   #@yaml/text-templated-strings
   values.yml: | 
-    username: (@= data.values.workload_registry.username @)
-    password: (@= data.values.workload_registry.password @)
-    registry: (@= data.values.workload_registry.hostname @)
+    username: (@= data.values.workload.registry.username @)
+    password: (@= data.values.workload.registry.password @)
+    registry: (@= data.values.workload.registry.hostname @)
     _package_install_name: tanzu-registry-creds
 ---
 apiVersion: packaging.carvel.dev/v1alpha1

@@ -1,10 +1,19 @@
 #@data/values
 ---
-workload_registry:
-  username:
-  password:
-  hostname:
-  ca_cert: |
-    -----BEGIN CERTIFICATE-----
-    ...
-    -----END CERTIFICATE-----
+workload:
+  registry:
+    username:
+    password:
+    hostname:
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      ...
+      -----END CERTIFICATE-----
+  ingress:
+    domain: example.com
+    dns_provider:
+      zone:
+      tanzu_platform_credential_ref:
+    wildcard_cert: 
+      crt: 
+      key:

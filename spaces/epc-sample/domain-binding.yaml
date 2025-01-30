@@ -1,0 +1,14 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: networking.tanzu.vmware.com/v1alpha1
+kind: DomainBinding
+metadata:
+  name: inclusion
+spec:
+  autoAssign:
+    port: false
+    subdomainOf: ""
+  domain: #@ 'inclusion-epc-sample.' + data.values.workload.ingress.domain
+  entrypoint: inclusion
+  http: {}
+  port: 80

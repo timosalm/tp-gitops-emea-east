@@ -1,16 +1,24 @@
-# apiVersion: networking.tanzu.vmware.com/v1alpha1
-# kind: DNSProvider
-# metadata:
-#   name: emea-east-avi
-#   namespace: default
-# spec:
-#   healthcheck:
-#     failureThreshold: 3
-#     interval: 30s
-#     timeout: 5s
-#   provider:
-#     aviGSLB:
-#       host: avi.elasticsky.cloud
-#       secretRef:
-#         name: emea-east-avi-dns-secret
-#   zone: TODO
+#@ load("@ytt:data", "data")
+---
+apiVersion: networking.tanzu.vmware.com/v1alpha1
+kind: DNSProvider
+metadata:
+  name: #@ data.values.workload.ingress.domain
+spec:
+  healthcheck:
+    failureThreshold: 3
+    interval: 30s
+    timeout: 5s
+  provider:
+    route53:
+      secretRef:
+        name: dns-secret-workloads.emea.end2end.link
+  zone: #@ data.values.workload.ingress.dns_provider.zone
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    secrets.tanzu.vmware.com/credential-ref: #@ data.values.workload.ingress.dns_provider.tanzu_platform_credential_ref
+  name: dns-secret-workloads.emea.end2end.link
+type: Opaque

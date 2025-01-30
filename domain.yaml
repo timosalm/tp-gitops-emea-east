@@ -1,18 +1,22 @@
-# apiVersion: networking.tanzu.vmware.com/v1alpha1
-# kind: Domain
-# metadata:
-#   name: emea-east.avi.elasticsky.cloud
-#   namespace: default
-# spec:
-#   allowed:
-#     ports:
-#     - '*'
-#     spaces:
-#     - '*'
-#     subdomains:
-#     - '*'
-#   autoAssignable:
-#     ports: {}
-#     subdomains: {}
-#   dnsProviderRef:
-#     name: emea-east-avi
+#@ load("@ytt:data", "data")
+---
+apiVersion: networking.tanzu.vmware.com/v1alpha1
+kind: Domain
+metadata:
+  name: #@ data.values.workload.ingress.domain
+  namespace: default
+spec:
+  allowed:
+    ports:
+    - '*'
+    spaces:
+    - '*'
+    subdomains:
+    - '*'
+  autoAssignable:
+    ports: {}
+    subdomains: {}
+  dnsProviderRef:
+    name: #@ data.values.workload.ingress.domain
+  certificateProviderRef:
+    name: #@ data.values.workload.ingress.domain

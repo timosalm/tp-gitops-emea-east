@@ -5,37 +5,31 @@
 apiVersion: build.tanzu.vmware.com/v1
 kind: BuildConfiguration
 metadata:
-  name: emea-east
+  name: epc
 spec:
-  availabilityTarget: emea-east
+  availabilityTarget: epc
   caCertificateSecretRefs:
-    - name: emea-east-buildconfiguration-ca-certs
+    - name: epc-buildconfiguration-ca-certs
   imageRepositorySecretRefs:
-    - name: emea-east-buildconfiguration-registry-creds
+    - name: epc-buildconfiguration-registry-creds
     - name: artifactory-secret-tap-saas
-  imageRepositoryTemplate: harbor.elasticsky.cloud/emea-east/{name}
-  egressPointTemplate:
-    targets:
-    - hosts:
-      - harbor.elasticsky.cloud
-      port:
-        number: 443
-        protocol: HTTPS
+  imageRepositoryTemplate: harbor.elasticsky.cloud/epc/{name}
+  egressPointTemplate: {}
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: emea-east-buildconfiguration-ca-certs
+  name: epc-buildconfiguration-ca-certs
 type: Opaque
 stringData:
-  harbor-cert.pem: #@ data.values.workload_registry.ca_cert
+  harbor-cert.pem: #@ data.values.workload.registry.ca_cert
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: emea-east-buildconfiguration-registry-creds
+  name: epc-buildconfiguration-registry-creds
 type: kubernetes.io/dockerconfigjson
 data:
-  #@ registry_creds = {"username": data.values.workload_registry.username, "password": data.values.workload_registry.password}
-  #@ encoded_creds = base64.encode(json.encode({"auths": {data.values.workload_registry.hostname: registry_creds}}))
+  #@ registry_creds = {"username": data.values.workload.registry.username, "password": data.values.workload.registry.password}
+  #@ encoded_creds = base64.encode(json.encode({"auths": {data.values.workload.registry.hostname: registry_creds}}))
   .dockerconfigjson: #@ encoded_creds

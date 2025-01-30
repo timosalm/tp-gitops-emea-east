@@ -1,10 +1,21 @@
-# apiVersion: networking.tanzu.vmware.com/v1alpha1
-# kind: CertificateProvider
-# metadata:
-#   name: emea-east-elasticsky-cloud
-#   namespace: default
-# spec:
-#   static:
-#     store:
-#       tlsSecretRef:
-#         name: emea-east-elasticsky-cloud-cert-secret
+#@ load("@ytt:data", "data")
+---
+apiVersion: networking.tanzu.vmware.com/v1alpha1
+kind: CertificateProvider
+metadata:
+  name: #@ data.values.workload.ingress.domain
+  namespace: default
+spec:
+  static:
+    store:
+      tlsSecretRef:
+        name: #@ data.values.workload.ingress.domain + '-cert'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: #@ data.values.workload.ingress.domain + '-cert'
+type: kubernetes.io/tls
+stringData:
+  tls.crt: #@ data.values.workload.ingress.wildcard_cert.crt
+  tls.key: #@ data.values.workload.ingress.wildcard_cert.key
