@@ -10,10 +10,10 @@ workload:
       ...
       -----END CERTIFICATE-----
   ingress:
-    domain: example.com
+    domain: workloads.example.com
     dns_provider:
-      zone:
-      tanzu_platform_credential_ref:
+      domain: example.com
+      tanzu_platform_credential_ref: 092ccfa8add23db915sfbf39edbfab67
     wildcard_cert: 
-      crt: 
-      key:
+      crt: LS0tLS1CRUdJT...
+      key: LS0tLS1CRUdJT...

@@ -3,7 +3,7 @@
 apiVersion: networking.tanzu.vmware.com/v1alpha1
 kind: DNSProvider
 metadata:
-  name: #@ data.values.workload.ingress.domain
+  name: #@ data.values.workload.ingress.dns_provider.domain
 spec:
   healthcheck:
     failureThreshold: 3
@@ -12,13 +12,13 @@ spec:
   provider:
     route53:
       secretRef:
-        name: dns-secret-workloads.emea.end2end.link
-  zone: #@ data.values.workload.ingress.dns_provider.zone
+        name: #@ 'dns-secret' + data.values.workload.ingress.dns_provider.domain
+  zone: #@ data.values.workload.ingress.dns_provider.domain
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   annotations:
     secrets.tanzu.vmware.com/credential-ref: #@ data.values.workload.ingress.dns_provider.tanzu_platform_credential_ref
-  name: dns-secret-workloads.emea.end2end.link
+  name: #@ 'dns-secret' + data.values.workload.ingress.dns_provider.domain
 type: Opaque

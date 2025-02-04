@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kapp-controller-config
+  namespace: tkg-system
+stringData:
+  # Harbor CA certificate in pem format
+  caCerts: |
+    -----BEGIN CERTIFICATE-----
+    MIIG...
+    c1GWyxcvZm5zLIbKZIRGf9xm/w==
+    -----END CERTIFICATE-----

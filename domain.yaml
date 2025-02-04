@@ -8,7 +8,7 @@ metadata:
 spec:
   allowed:
     ports:
-    - '*'
+    - "443"
     spaces:
     - '*'
     subdomains:

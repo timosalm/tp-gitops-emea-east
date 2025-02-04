@@ -11,4 +11,4 @@ spec:
   domain: #@ 'inclusion-epc-sample.' + data.values.workload.ingress.domain
   entrypoint: inclusion
   http: {}
-  port: 80
+  port: 443

@@ -1,0 +1,114 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: emea-east-wkld-1
+  namespace: platform
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+      - 192.168.156.0/20
+    serviceDomain: cluster.local
+    services:
+      cidrBlocks:
+      - 10.96.0.0/12
+  controlPlaneEndpoint:
+    host: 192.168.100.16
+    port: 6443
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+    kind: KubeadmControlPlane
+    name: emea-east-wkld-1-67fd6ab4-bcc1-8ks7j
+    namespace: platform
+  infrastructureRef:
+    apiVersion: vmware.infrastructure.cluster.x-k8s.io/v1beta1
+    kind: VSphereCluster
+    name: emea-east-wkld-1-67fd6ab4-bcc1-fdhzl
+    namespace: platform
+  topology:
+    class: tanzukubernetescluster
+    controlPlane:
+      metadata: {}
+      replicas: 1
+    variables:
+    - name: TKR_DATA
+      value:
+        v1.29.4+vmware.3-fips.1:
+          kubernetesSpec:
+            coredns:
+              imageRepository: localhost:5000/vmware.io
+              imageTag: v1.10.1_vmware.19-fips.2
+            etcd:
+              imageRepository: localhost:5000/vmware.io
+              imageTag: v3.5.12_vmware.4-fips.2
+            imageRepository: localhost:5000/vmware.io
+            pause:
+              imageRepository: localhost:5000/vmware.io
+              imageTag: "3.9"
+            version: v1.29.4+vmware.3-fips.1
+          labels:
+            image-type: vmi
+            os-arch: amd64
+            os-name: photon
+            os-type: linux
+            os-version: "5"
+            run.tanzu.vmware.com/os-image: vmi-b0d3322666098ea81
+            run.tanzu.vmware.com/tkr: v1.29.4---vmware.3-fips.1-tkg.1
+            vmi-name: vmi-b0d3322666098ea81
+          osImageRef:
+            name: vmi-b0d3322666098ea81
+    - name: clusterEncryptionConfigYaml
+      value: LS0tCmFwa...
+    - name: controlPlaneCertificateRotation
+      value:
+        activate: true
+        daysBefore: 90
+    - name: extensionCert
+      value:
+        contentSecret:
+          key: tls.crt
+          name: emea-east-wkld-1-67fd6ab4-bcc1-extensions-ca
+    - name: nodePoolVolumes
+      value: []
+    - name: ntp
+      value: ntp.broadcom.net
+    - name: podSecurityStandard
+      value: {}
+    - name: storageClass
+      value: k8s-workload
+    # Required for nodes to trust the self-signed harbor certificate
+    - name: trust
+      value:
+        additionalTrustedCAs:
+        - name: harbor-elasticsky-cloud-ca
+    - name: user
+      value:
+        passwordSecret:
+          key: ssh-passwordkey
+          name: emea-east-wkld-1-67fd6ab4-bcc1-ssh-password-hashed
+        sshAuthorizedKey: |
+          ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCRVVy4mE2LcjCvXnrdR44ef7P0DS0T1Q+6WqkOLTT356nAgFtY4uYQ6xsmsx9RooNulOdTzkEE/NlvKa54gZhJB2F9EX9I+7YAKQewg7MK+SHTwsNXEaa0Qd2Jnwdhy3V8ZXgrWAw0Nkja5x64LH9lotOdiYdfbqvQuDe/Tx6WEIe0KYD81q1SPTgKmHX3bO+OA60vPLO7EfQjTzw3GBSr+DrpXdL49+ktX74UyArnFL5TPzcaMHcywV3d2NibEZhaE7OwHVRkElGZcLF1rSV9w5fVKX01MoXYHT+kjD4dCskfkwGCAWcm3Alhl1v2edjMvFBN1FD1Y+viPevO9oau9SDx3jUF64lPGSbfTpt5Wm/23kmbFHM69FzW5OoEncv5KSW+g6QfxjGFIL9VMNkQF8I/7HUOAa/0B5A4UN0RZb+LPgFgnnjBwMMlP6Y3a3Mx1/trvihKRw3sTdyiokGtaNxvjUumEZwhGQuDJA2QvVUzNBKioE2ykXzwLZSvlortCPqWG2dFY1Kgo9cdsIh9ai1LZza0HgcVbwAMTgC8vRYjGpkkT9LWNenCxFM21KdfbvZLcN/CNlOp47P+evbNDs9d1rOOjapma7U9WIDcCsKN9GN8LKQlDVY1BpQVM/tEG9ZITGVw8wJbVBqTrRyCoK45hr2+ouqv1vhJZ9eyXw==
+    - name: vmClass
+      value: best-effort-medium
+    version: v1.29.4+vmware.3-fips.1
+    workers:
+      machineDeployments:
+      - class: node-pool
+        metadata:
+          annotations:
+            run.tanzu.vmware.com/resolve-os-image: os-name=photon
+        name: default
+        replicas: 5
+        variables:
+          overrides:
+          # Additional CPU is required for the TP workload cluster (16vCPUs, 8GB memory)
+          - name: vmClass
+            value: best-effort-medium-more-cpu
+          # Additional storage for the nodes
+          - name: nodePoolVolumes
+            value:
+            - capacity:
+                storage: 100Gi
+              mountPath: /var/lib/containerd
+              name: containerd-s2xu
+              storageClass: k8s-workload
