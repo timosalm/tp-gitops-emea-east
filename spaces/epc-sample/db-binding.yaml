@@ -1,0 +1,15 @@
+apiVersion: services.tanzu.vmware.com/v1
+kind: ServiceBinding
+metadata:
+  name: inclusion-db
+  namespace: default
+spec:
+  alias: db
+  serviceRef:
+    apiGroup: bitnami.database.tanzu.vmware.com
+    kind: PostgreSQLInstance
+    name: inclusion-db
+  targetRef:
+    apiGroup: apps.tanzu.vmware.com
+    kind: ContainerApp
+    name: inclusion

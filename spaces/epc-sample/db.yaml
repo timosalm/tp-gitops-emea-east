@@ -1,0 +1,8 @@
+apiVersion: bitnami.database.tanzu.vmware.com/v1alpha1
+kind: PostgreSQLInstance
+metadata:
+  name: inclusion-db
+  namespace: default
+spec:
+  compositeDeletePolicy: Background
+  storageGB: 1
