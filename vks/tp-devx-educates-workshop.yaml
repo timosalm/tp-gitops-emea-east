@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: educates-devx-workshop
+spec: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shared-inclusion-db
+  namespace: educates-devx-workshop
+spec:
+  ports:
+  - name: tcp-postgresql
+    port: 5432
+    protocol: TCP
+    targetPort: tcp-postgresql
+  selector:
+    app.kubernetes.io/name: postgresql
+  type: ClusterIP
+---
+apiVersion: bitnami.database.tanzu.vmware.com/v1alpha1
+kind: PostgreSQLInstance
+metadata:
+  name: shared-inclusion-db
+  namespace: educates-devx-workshop
+spec:
+  compositeDeletePolicy: Background
+  storageGB: 1

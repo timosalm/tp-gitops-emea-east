@@ -46,3 +46,8 @@ cp values-example.yaml values.yaml
 tanzu project use <my-project>
 ./deploy.sh
 ```
+
+## Optional setup for DevX educates workshop
+```
+kubectl apply -f vks/tp-devx-educates-workshop.yaml
+```
