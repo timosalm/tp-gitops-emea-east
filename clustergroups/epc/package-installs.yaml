@@ -342,3 +342,14 @@ spec:
     versionSelection:
       constraints: ">0.0.0"
   serviceAccountName: pkg-installs-sa
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  name: prometheus-operator.tanzu.vmware.com
+spec:
+  packageRef:
+    refName: prometheus-operator.tanzu.vmware.com
+    versionSelection:
+      constraints: '>0.0.0'
+  serviceAccountName: pkg-installs-sa

@@ -29,6 +29,7 @@ spec:
   - name: health.spaces.tanzu.vmware.com
   - name: build.tanzu.vmware.com
   #- name: kubernetes-metrics-server.tanzu.vmware.com
+  - name: prometheus-operator.tanzu.vmware.com
   traits:
   - alias: carvel-package-installer.tanzu.vmware.com
     name: carvel-package-installer.tanzu.vmware.com
@@ -53,12 +54,6 @@ spec:
             interval: 25s
           sso:
             inactive-session-expiration-in-minutes: 0
-  - alias: observability.tanzu.vmware.com
-    name: observability.tanzu.vmware.com
-    values:
-      inline:
-        observability-traits.tanzu.vmware.com:
-          enabled: true
   - alias: fluxcd-helmrelease-installer.tanzu.vmware.com
     name: fluxcd-helmrelease-installer.tanzu.vmware.com
     values:
