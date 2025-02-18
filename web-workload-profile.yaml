@@ -6,7 +6,6 @@ metadata:
 spec:
   requiredCapabilities:
   - name: mtls.tanzu.vmware.com
-  - name: crosscluster.tanzu.vmware.com
   - name: crossplane.tanzu.vmware.com
   - name: fluxcd-helm.tanzu.vmware.com
   - name: fluxcd-source.tanzu.vmware.com
