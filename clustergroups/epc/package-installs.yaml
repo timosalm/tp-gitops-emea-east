@@ -200,17 +200,6 @@ spec:
 apiVersion: packaging.carvel.dev/v1alpha1
 kind: PackageInstall
 metadata:
-  name: crosscluster.tanzu.vmware.com
-spec:
-  packageRef:
-    refName: crosscluster.tanzu.vmware.com
-    versionSelection:
-      constraints: ">0.0.0"
-  serviceAccountName: pkg-installs-sa
----
-apiVersion: packaging.carvel.dev/v1alpha1
-kind: PackageInstall
-metadata:
   name: egress.tanzu.vmware.com
 spec:
   packageRef:
