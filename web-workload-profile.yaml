@@ -22,8 +22,6 @@ spec:
   - name: service-registry.spring.apps.tanzu.vmware.com
   - name: package-management.tanzu.vmware.com
   - name: spring-cloud-gateway.tanzu.vmware.com
-  - name: observability.tanzu.vmware.com
-  - name: servicemesh-observability.tanzu.vmware.com
   - name: horizontal-autoscaling.tanzu.vmware.com
   - name: health.spaces.tanzu.vmware.com
   - name: build.tanzu.vmware.com
